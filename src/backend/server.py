@@ -7,6 +7,8 @@ from flask_cors import CORS
 from backend.resources import CustomerResource
 from backend.resources import CityResource
 from backend.resources import FreightResource
+from backend.resources import OrderResource
+from backend.resources import ProductResource
 from backend.utils.server_logger import logger
 
 
@@ -30,9 +32,32 @@ def create_app(test_config=None):
     CORS(app)
     # Register api resources
     api = Api(app)
-    api.add_resource(CustomerResource, '/api/v1/customer')
-    api.add_resource(CityResource, '/api/v1/city')
-    api.add_resource(FreightResource, '/api/v1/freight')
+
+    list_of_resources = [
+        CustomerResource,
+        CityResource,
+        FreightResource,
+        OrderResource,
+        ProductResource,
+    ]
+
+    list_of_resource_and_endpoints = [
+        (res, f'/api/v1/{res.__name__.replace("Resource", "").lower()}') for
+        res in list_of_resources
+    ]
+
+    for res, ep in list_of_resource_and_endpoints:
+        api.add_resource(res, ep)
+
+
+    @app.route('/')
+    def home():
+        app_host = 'http://127.0.0.1:5005'
+        anchors = [
+            f'<a href="{app_host}{ep}">{ep}</a>' for _, ep
+            in list_of_resource_and_endpoints
+        ]
+        return '<br>'.join(anchors)
 
     return app
 
