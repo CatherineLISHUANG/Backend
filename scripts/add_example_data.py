@@ -59,18 +59,23 @@ def generate_products():
             'name': fake.catch_phrase(),
             'product_class': fake.company(),
             'price': random.randint(100, 1000),
+            'sales_unit': random.choice(['USD', 'EUR', 'HUF']),
+            'weight_kg': random.randint(1, 100),
+            'total_volume_m3': random.randint(1, 20),
         } for _ in range(os.getenv('NUM_PRODUCT', 10))
     ]
 
 
-def generate_orders(customers, products):
+def generate_orders(customers, products, cities):
     fake= Faker()
     return [
         {
             'id': get_rand_id(),
+            'code': random.randint(100, 1000),
             'date': fake.date(),
             'product_quantity': random.randint(100, 1000),
             'customer_id': choose_rand_id(customers),
+            'city_id': choose_rand_id(cities),
             'product_id': choose_rand_id(products),
         } for _ in range(os.getenv('NUM_ORDER', 10))
     ]
@@ -81,7 +86,8 @@ def add_resource(endpoint, data_as_dict):
     payload= json.dumps(data_as_dict)
     url= f'{APP_HOST}/api/v1/{endpoint}'
     response= requests.post(url, json=payload)
-    print(response.json())
+    if 'Internal Server Error' in str(response.json()):
+        raise Exception(f'Something went wrong for [{endpoint}] when given {data_as_dict}')
 
 def choose_rand_id(items):
     return random.choice([c['id'] for c in items])
@@ -90,9 +96,9 @@ def choose_rand_id(items):
 def main():
     customers= generate_customers()
     products= generate_products()
-    orders= generate_orders(customers, products)
-
     cities= generate_cities()
+
+    orders= generate_orders(customers, products, cities)
     freights= generate_freights(cities)
 
 

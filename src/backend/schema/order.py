@@ -9,6 +9,7 @@ ma = Marshmallow()
 class OrderSchema(ma.Schema):
     id = ma.Str()
 
+    code = ma.Str()
     date = ma.Date()
     product_quantity = ma.Int()
 

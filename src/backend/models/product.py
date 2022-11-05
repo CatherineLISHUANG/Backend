@@ -12,8 +12,14 @@ class Product(db.Model):
     name = sa.Column(sa.String(150))
     price = sa.Column(sa.Float)
     sales_unit = sa.Column(sa.String(150))
-    # .... etc...
+
+    weight_kg = sa.Column(sa.Float)
+    total_volume_m3 = sa.Column(sa.Float)
 
     # Relations
     orders_made = db.relationship(
         'Order', backref='product')
+
+    @property
+    def full_info(self):
+        return f'{self.name} ({self.product_class})'

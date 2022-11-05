@@ -11,4 +11,7 @@ class ProductSchema(ma.Schema):
     name = ma.Str()
     price = ma.Float()
     sales_unit = ma.String()
+    full_info = ma.String()
+    weight_kg = ma.Float()
+    total_volume_m3 = ma.Float()
     # ...etc...

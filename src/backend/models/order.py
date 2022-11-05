@@ -6,6 +6,7 @@ from .database import db
 class Order(db.Model):
     id = sa.Column(sa.String(36), primary_key=True,
                    default=lambda: str(uuid.uuid4()))
+    code = sa.Column(sa.String(150))
     date = sa.Column(sa.Date)
     product_quantity = sa.Column(sa.Integer)
 
