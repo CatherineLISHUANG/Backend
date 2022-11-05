@@ -4,13 +4,14 @@ from backend.models import Order
 from backend.models.database import db
 from backend.schema import OrderSchema
 from backend.utils.query_helpers import careful_query
+from backend.utils.query_helpers import dump_results
 
 
 class OrderResource(Resource):
 
     def get(self):
         result = _query_all()
-        return result, 200
+        return dump_results(result), 200
 
     def post(self):
         payload = request.json

@@ -1,4 +1,5 @@
 from functools import wraps
+import json
 from sqlalchemy.exc import OperationalError
 
 
@@ -12,3 +13,6 @@ def careful_query(func):
         except Exception as e:
             return [], f'Failed to query: {e}'
     return _careful_query
+
+def dump_results(results):
+    return results
