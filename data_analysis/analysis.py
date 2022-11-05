@@ -1,22 +1,25 @@
 import pandas as pd
 
-data = pd.read_csv('./sandbox/data/Freight.csv',delimiter=';')
+data = pd.read_csv('./sandbox/data/Orders.csv',delimiter=',')
 df = pd.DataFrame(data)
 
-freight_dic = {}
+customer = set(df['CustomerCode'])
 
-for i in range(len(df)):
-    freight = list(df.iloc[i])
-    key_value = {'code': i,
-                 'departureID': 0,
-                 'arrivalID': 1,
-	             'distance': freight[5],
-	             'weight': freight[6],
-	             'volume': freight[7],
-	             'price': freight[8],
-	             'date': freight[9]}
-    freight_dic.update(key_value)
-    print(freight_dic)
+print(customer)
+# freight_dic = {}
+
+# for i in range(len(df)):
+#     freight = list(df.iloc[i])
+#     key_value = {'code': i,
+#                  'departureID': 0,
+#                  'arrivalID': 1,
+# 	             'distance': freight[5],
+# 	             'weight': freight[6],
+# 	             'volume': freight[7],
+# 	             'price': freight[8],
+# 	             'date': freight[9]}
+#     freight_dic.update(key_value)
+#     print(freight_dic)
 	
 # print(freight)
 
