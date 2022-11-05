@@ -4,8 +4,8 @@ import sys
 from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
-from resources import CustomerResource
-from utils.server_logger import logger
+from backend.resources import CustomerResource
+from backend.utils.server_logger import logger
 
 
 def create_app(test_config=None):
