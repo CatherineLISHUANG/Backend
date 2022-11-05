@@ -11,7 +11,7 @@ df = pd.DataFrame(data)
 def add_product(product):
 	payload = json.dumps(product)
 	resp = requests.post("http://127.0.0.1:5005/api/v1/product", json=payload)
-	# print(resp.json())
+	print(resp.json())
 
 for i in range(len(df)):
     row = list(df.iloc[i])
