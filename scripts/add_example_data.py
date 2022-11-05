@@ -20,6 +20,8 @@ def generate_cities():
         'id': get_rand_id(),
         'name': fake.city(),
         'post_code': fake.postcode(),
+        'latitude': str(fake.latitude()),
+        'longitude': str(fake.longitude()),
     } for _ in range(os.getenv('NUM_CITY', 10))]
     return cities
 
