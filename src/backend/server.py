@@ -2,6 +2,9 @@
 import os
 import sys
 from flask import Flask
+from flask_restful import Api
+from flask_cors import CORS
+from resources import CustomerResource
 from utils.server_logger import logger
 
 
@@ -15,6 +18,20 @@ def create_app(test_config=None):
     if err:
         logger.error(f'Database init failed: {err}')
         sys.exit(1)
+
+    # Setup CORS
+    allowed_origins = [
+        'http://127.0.0.1:5010'
+    ]
+    if os.getenv('FRONTEND_URL'):
+        allowed_origins.extend(os.getenv('FRONTEND_URL'))
+    CORS(app, resources={
+        r"/api/v1/customer": {"origins": allowed_origins},
+    })
+
+    # Register api resources
+    api = Api(app)
+    api.add_resource(CustomerResource, '/api/v1/customer')
 
     return app
 
