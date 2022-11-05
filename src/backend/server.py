@@ -27,10 +27,7 @@ def create_app(test_config=None):
     ]
     if os.getenv('FRONTEND_URL'):
         allowed_origins.extend(os.getenv('FRONTEND_URL'))
-    CORS(app, resources={
-        r"/api/v1/customer": {"origins": allowed_origins},
-    })
-
+    CORS(app)
     # Register api resources
     api = Api(app)
     api.add_resource(CustomerResource, '/api/v1/customer')
