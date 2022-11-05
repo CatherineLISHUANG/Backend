@@ -9,38 +9,35 @@ def get_rand_id():
     return str(uuid.uuid4())
 
 
+APP_HOST = os.getenv('APP_HOST', 'http://127.0.0.1:5005')
+
+
 def generate_cities():
     total = 20
 
     fake = Faker()
     cities = [{
         'id': get_rand_id(),
-        'first_name': fake.first_name(),
-        'last_name': fake.last_name(),
+        'name': fake.city(),
+        'post_code': fake.postcode(),
     } for _ in range(total)]
     return cities
 
-def add_city_to_db(city_dictionary):
-    '''
-    city_dictionary
 
-    {
-        'name': '...',
-        'post_code': '...',
-    }
-    '''
-    payload = json.dumps(city_dictionary)
-    url = f'http://127.0.0.1:5005/api/v1/city'
-    response = requests.post(url, json=payload) # need to debug why
+def add_resource(endpoint, data_as_dict):
+    payload = json.dumps(data_as_dict)
+    url = f'{APP_HOST}/api/v1/{endpoint}'
+    response = requests.post(url, json=payload)
     print(response.json())
 
 
 def main():
 
-    users = generate_cities()
+    cities = generate_cities()
 
-    for user in users:
-        create_freight(user)
+    for city in cities:
+        add_resource('city', city)
+
 
 if __name__ == '__main__':
     main()
