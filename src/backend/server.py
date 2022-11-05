@@ -5,6 +5,7 @@ from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
 from backend.resources import CustomerResource
+from backend.resources import CityResource
 from backend.resources import FreightResource
 from backend.utils.server_logger import logger
 
@@ -33,6 +34,7 @@ def create_app(test_config=None):
     # Register api resources
     api = Api(app)
     api.add_resource(CustomerResource, '/api/v1/customer')
+    api.add_resource(CityResource, '/api/v1/city')
     api.add_resource(FreightResource, '/api/v1/freight')
 
     return app
