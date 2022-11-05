@@ -26,6 +26,7 @@ class EndpointTestBaseClass(unittest.TestCase):
 
     def _create_database(self):
         with self.flask_app.app_context():
+            self.db.create_all()
             sample_data = get_sample_data()
             self.db.session.add_all(sample_data)
             self.db.session.commit()

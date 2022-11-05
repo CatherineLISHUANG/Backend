@@ -10,13 +10,11 @@ class CheckEndpoints(EndpointTestBaseClass):
 
     def test_adding_customer(self):
         response = self.endpoint_client.post('/api/v1/customer', json={
-            'first_name': 'ExampleFirstName',
-            'last_name': 'ExampleLastName',
+            'name': 'ExampleName',
         })
 
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json['first_name'], 'ExampleFirstName')
-        self.assertEqual(response.json['last_name'], 'ExampleLastName')
+        self.assertEqual(response.json['name'], 'ExampleName')
 
 
 if __name__ == '__main__':

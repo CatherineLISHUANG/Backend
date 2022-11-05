@@ -3,4 +3,4 @@
 set -eu
 
 PYTHONPATH=./src \
-    ./tests/test_endpoint.py
+    python3 -m unittest discover -s ./tests -p 'test_*.py'
