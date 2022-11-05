@@ -77,6 +77,7 @@ def generate_orders(customers, products, cities):
             'customer_id': choose_rand_id(customers),
             'city_id': choose_rand_id(cities),
             'product_id': choose_rand_id(products),
+            'status': random.choice([None, 'ACCEPTED', 'DENIED']),
         } for _ in range(os.getenv('NUM_ORDER', 10))
     ]
 

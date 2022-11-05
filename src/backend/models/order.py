@@ -14,3 +14,6 @@ class Order(db.Model):
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
     city_id = db.Column(db.Integer, db.ForeignKey('city.id'))
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+
+    # Special
+    status = sa.Column(sa.String(100), default='PENDING')

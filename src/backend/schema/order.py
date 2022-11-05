@@ -17,3 +17,6 @@ class OrderSchema(ma.Schema):
     city = ma.Nested(CitySchema)
     customer = ma.Nested(CustomerSchema)
     product = ma.Nested(ProductSchema)
+
+    # Special
+    status = ma.Str()
