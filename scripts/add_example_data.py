@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import random
 import uuid
 import os
 import json
@@ -23,6 +24,25 @@ def generate_cities():
     } for _ in range(total)]
     return cities
 
+def get_rand_city_id(cities):
+    return random.choice([c['id'] for c in cities])
+
+def generate_freights(cities):
+    total = 100
+    fake = Faker()
+    freights = [{
+        'id': get_rand_id(),
+        'departure_city_id': get_rand_city_id(cities),
+        'arrival_city_id': get_rand_city_id(cities),
+        'pre_calc_distance': random.randint(100, 1000),
+        'pre_calc_weight': random.randint(100, 1000),
+        'pre_calc_volume': random.randint(100, 1000),
+        'pre_calc_price': random.randint(100, 1000),
+        'date': fake.date(),
+    } for _ in range(total)]
+
+    return freights
+
 
 def add_resource(endpoint, data_as_dict):
     payload = json.dumps(data_as_dict)
@@ -37,6 +57,10 @@ def main():
 
     for city in cities:
         add_resource('city', city)
+
+    freights = generate_freights(cities)
+    for freight in freights:
+        add_resource('freight', freight)
 
 
 if __name__ == '__main__':

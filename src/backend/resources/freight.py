@@ -20,11 +20,16 @@ class FreightResource(Resource):
             except Exception as e:
                 return f'Failed to parse payload: {e}', 400
 
+        if payload.get('date'):
+            import datetime
+            as_date = datetime.datetime.strptime(payload.get('date'), "%Y-%m-%d")
+            payload['date'] = as_date
+
         new_entry = Freight(**payload)
         db.session.add(new_entry)
         db.session.commit()
 
-        return payload, 201
+        return FreightSchema().dump(Freight.query.get(new_entry.id)), 201
 
 
 @careful_query
