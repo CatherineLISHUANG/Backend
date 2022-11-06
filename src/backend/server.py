@@ -10,6 +10,7 @@ from backend.resources import FreightResource
 from backend.resources import OrderResource
 from backend.resources import ProductResource
 from backend.resources import GroupedResource
+from backend.resources import OrganizedResource
 from backend.utils.server_logger import logger
 
 
@@ -41,6 +42,7 @@ def create_app(test_config=None):
         OrderResource,
         ProductResource,
         GroupedResource,
+        OrganizedResource,
     ]
 
     list_of_resource_and_endpoints = [
