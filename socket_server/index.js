@@ -19,6 +19,10 @@ io.on('connection', (socket) => {
   socket.on('chat message', msg => {
     io.emit('chat message', msg);
   });
+  socket.on('retrigger-query', context_msg => {
+    console.log('server has received instructions', context_msg)
+    io.emit('retrigger-query', context_msg);
+  });
 });
 
 http.listen(port, () => {
